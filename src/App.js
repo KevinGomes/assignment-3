@@ -18,15 +18,16 @@ class App extends Component {
   constructor() {  // Create and initialize state
     super(); 
     this.state = {
-      accountBalance: 1234567.89,
-      creditList: [],
-      debitList: [],
+      accountBalance: 0.00,
+      creditList: [1,2,5],
+      debitList: [1,2,3],
       currentUser: {
         userName: 'Joe Smith',
         memberSince: '11/22/99',
       }
     };
   }
+
 
   // Update state's currentUser (userName) after "Log In" button is clicked
   mockLogIn = (logInInfo) => {  
@@ -35,13 +36,18 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
+  setAccountBalance = (balance) => {
+    this.setState({accountBalance: balance})
+  }
+
   // Create Routes and React elements to be rendered using React components
   render() {  
+
+    
+    
     // Create React elements and pass input props to components
-    const HomeComponent = () => (<Home accountBalance={this.state.accountBalance} />)
-    const UserProfileComponent = () => (
-      <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
-    )
+    const HomeComponent = () => (<Home accountBalance={this.state.accountBalance} creditList={this.state.creditList} debitList={this.state.debitList} setAccountBalance={this.setAccountBalance}/>)
+    const UserProfileComponent = () => (<UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />)
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
     const CreditsComponent = () => (<Credits credits={this.state.creditList} />) 
     const DebitsComponent = () => (<Debits debits={this.state.debitList} />) 
